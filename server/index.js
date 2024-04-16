@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.post('/reviews/', async (req, res) => {
+app.post('/reviews', async (req, res) => {
     const { reviewer_name, time, address, star_review, body, likes, dislikes, comments, reviewer_image_url, amenity, anonymous } = req.body;
 
     try {
