@@ -9,7 +9,7 @@ import newyork3 from "../assets/newyork3.avif";
 
 const AllReview = () => {
     const [reviews, setReviews] = useState([]);
-
+  axios.defaults.withCredentials = true;
     useEffect(() => {
         const fetchReviews = async () => {
             try {
