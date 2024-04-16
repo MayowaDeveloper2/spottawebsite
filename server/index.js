@@ -57,9 +57,9 @@ app.post('/reviews', async (req, res) => {
     }
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.get("/", (req, res) => {
+    res.json("Hello Viewers");
+})
 
 app.use('/reviews', reviewsRoutes);
 
