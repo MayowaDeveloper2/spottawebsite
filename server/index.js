@@ -6,13 +6,7 @@ const port = 9000;
 const cors = require('cors'); 
 const reviewsRoutes = require('./reviewsRoutes');
 
-app.use(cors(
-    {
-        origin: ["https://spottawebsite-frontend.vercel.app/"],
-        methods: ["POST", "GET"],
-        credentials: true
-    }
-));
+app.use(cors());
 
 const pool = new Pool({
     user: 'default',
