@@ -4,17 +4,17 @@ const router = express.Router();
 const cors = require('cors');
 
 const pool = new Pool({
-    user: 'default',
-    host: 'https://ep-patient-dream-a4ircu4i-pooler.us-east-1.aws.neon.tech',
-    database: 'verceldb',
-    password: 'Ur92WuQwMpZa',
+    user: 'postgres.aricpnxiparpyvpmkowk',
+    host: 'aws-0-eu-central-1.pooler.supabase.com',
+    database: 'postgres',
+    password: '8128460866M',
     port: 5432,
 }); 
 
 
 router.use(cors(
     {
-        origin: "https://spottawebsite-api.vercel.app",
+        origin: "https://spottawebsite-frontend.vercel.app",
         methods: ["POST", "GET"],
         credentials: true
     }
