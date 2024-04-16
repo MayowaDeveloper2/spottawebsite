@@ -11,7 +11,13 @@ const pool = new Pool({
     port: 5432,
 });
 
-router.use(cors());
+router.use(cors(
+    {
+        origin: "https://spottawebsite-api.vercel.app",
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
 
 async function getReviews(req, res) {
     try {
