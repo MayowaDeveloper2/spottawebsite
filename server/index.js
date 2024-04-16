@@ -79,7 +79,7 @@ app.post('/reviews', async (req, res) => {
 
     try {
         const query = `
-            INSERT INTO review (reviewer_name, time, address, star_review, body, likes, dislikes, comments, reviewer_image_url, amenities, anonymous)
+            INSERT INTO review (reviewer_name, time, address, star_review, body, likes, dislikes, comments, reviewer_image_url, amenity, anonymous) -- Corrected placeholder for 'amenity'
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             RETURNING id;
         `;
@@ -90,7 +90,7 @@ app.post('/reviews', async (req, res) => {
         res.status(201).json({ message: 'Review submitted', reviewId: result.rows[0].id });
     } catch (err) {
         console.error('Error inserting review:', err);
-        res.status(500).send('Some occurred');
+        res.status(500).send('Some error occurred');
     }
 });
 
