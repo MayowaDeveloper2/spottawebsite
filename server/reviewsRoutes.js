@@ -4,10 +4,10 @@ const router = express.Router();
 const cors = require('cors');
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: '08128460866',
+    user: 'default',
+    host: 'ep-patient-dream-a4ircu4i-pooler.us-east-1.aws.neon.tech',
+    database: 'verceldb',
+    password: 'Ur92WuQwMpZa',
     port: 5432,
 });
 

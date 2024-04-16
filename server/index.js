@@ -1,19 +1,33 @@
 const express = require('express');
 const { Pool } = require('pg');
 const app = express();
+/* import pg from 'pg'; */
 const port = 9000;
 const cors = require('cors'); 
 const reviewsRoutes = require('./reviewsRoutes');
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: ["https://spottawebsite-frontend.vercel.app/"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: '08128460866',
+    user: 'default',
+    host: 'ep-patient-dream-a4ircu4i-pooler.us-east-1.aws.neon.tech',
+    database: 'verceldb',
+    password: 'Ur92WuQwMpZa',
     port: 5432,
-});
+}); 
+
+
+/* const { Pool } = pg;
+
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL ,
+}) */
 
 app.use(express.json());
 
