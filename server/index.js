@@ -8,7 +8,7 @@ const reviewsRoutes = require('./reviewsRoutes');
 
 app.use(cors(
     {
-        origin: "https://spottawebsite-api.vercel.app",
+        origin: "https://spottawebsite-frontend.vercel.app/",
         methods: ["POST", "GET"],
         credentials: true
     }
