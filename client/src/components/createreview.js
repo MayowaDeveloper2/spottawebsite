@@ -51,7 +51,7 @@ const CreateReview = () => {
         };
 
         
-        axios.post('https://spottawebsite-api.vercel.app/reviews/', data, {
+        axios.post('https://spottawebsite-api.vercel.app/reviews', data, {
             headers: {
                 'Content-Type': 'application/json'
             }
