@@ -55,7 +55,7 @@ createReviewsTable()
     .then(() => resetSequence())
     .catch(err => console.error('Initialization error:', err));
 
-app.get('/home/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
