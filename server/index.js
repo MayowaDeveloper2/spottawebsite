@@ -10,7 +10,8 @@ app.use(cors(
     {
         origin: "https://spottawebsite-frontend.vercel.app/",
         methods: ["POST", "GET"],
-        credentials: true
+        credentials: true,
+        preflightContinue: true
     }
 ));
 
