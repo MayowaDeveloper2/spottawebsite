@@ -17,7 +17,7 @@ app.use(cors(
 
 const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
+    host: 'https://spottawebsite-api.vercel.app',
     database: 'postgres',
     password: '08128460866',
     port: 5432,
