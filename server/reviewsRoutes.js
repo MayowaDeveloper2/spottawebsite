@@ -1,7 +1,9 @@
 const express = require('express');
 const { Pool } = require('pg');
-const router = express.Router();
 const cors = require('cors');
+
+const app = express();
+const router = express.Router(); // Create a router instance
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
@@ -11,16 +13,13 @@ const pool = new Pool({
     port: 5432,
 }); 
 
-
-
-
+// Add CORS middleware
 app.use(cors({
-    origin: 'https://spottawebsite-frontend.vercel.app', // Change this to your actual origin
+    origin: '*', // Change this to your actual origin
     methods: ['GET', 'POST'], // Add other allowed methods if needed
     allowedHeaders: ['Content-Type', 'Accept', 'Accept-Encoding', 'Accept-Language', 'Content-Length'], // Include other allowed headers
 }));
-  
-  
+
 async function getReviews(req, res) {
     try {
         const query = 'SELECT * FROM review;';
@@ -32,6 +31,14 @@ async function getReviews(req, res) {
     }
 }
 
+// Define routes on the router
 router.get('/', getReviews);
 
-module.exports = router;
+// Mount the router on the app
+app.use('/reviews', router);
+
+// Start the server
+const port = process.env.PORT || 9000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
