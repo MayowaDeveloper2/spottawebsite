@@ -14,7 +14,7 @@ const pool = new Pool({
 
 router.use(cors(
     {
-        origin: "https://spottawebsite-frontend.vercel.app",
+        origin: "https://spottawebsite-frontend.vercel.app/",
         methods: ["POST", "GET"],
         credentials: true
     }
