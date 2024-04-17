@@ -20,12 +20,9 @@ router.use(cors(
     }
 ));
 
-const corsOptions = {
-    origin: 'https://spottawebsite-frontend.vercel.app'
-  };
-  
-  app.use(cors(corsOptions));
 
+  
+  
 async function getReviews(req, res) {
     try {
         const query = 'SELECT * FROM review;';
