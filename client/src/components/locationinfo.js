@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import CreateReview from '../components/createreview';
@@ -8,6 +8,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 const LocationInfo = () => {
     const [showReviewForm, setShowReviewForm] = useState(false);
+    const [totalReviews, setTotalReviews] = useState(0);
     const tabs = [
         'Schools', 'Hospitals', 'Resort Park', 'Shopping Malls', 'Airport', 'Train Station', 'Nightlife', 'Public Wifi', 'Parking Lot', 'Security',
         'Public Transport', 'Bus Station', 'Quiet'
@@ -15,6 +16,21 @@ const LocationInfo = () => {
 
     const handleClick = () => {
         setShowReviewForm(!showReviewForm);
+    };
+
+
+    useEffect(() => {
+        fetchTotalReviews();
+    }, []);
+
+    const fetchTotalReviews = async () => {
+        try {
+            const response = await fetch('https://spottawebsite-api.vercel.app/totalrows');
+            const data = await response.json();
+            setTotalReviews(data.totalReviews); 
+        } catch (error) {
+            console.error('Error fetching total reviews:', error);
+        }
     };
 
     
@@ -26,7 +42,7 @@ const LocationInfo = () => {
                         Bonny and Clyde Street, Ajao Estate, Lagos
                     </h1>
                     <p className="text-sm lg:text-base font-[500] text-[#18181B]">
-                        <span>"450" Reviews (People are raving about the selected location)</span>
+                        <span>"{totalReviews}" Reviews (People are raving about the selected location)</span>
                     </p>
                     <div className="flex flex-row justify-end gap-4 md:absolute md:right-0 md:px-[100px]">
                         

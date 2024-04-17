@@ -5,7 +5,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import spottaim from "../assets/spotta.avif";
 import LocationInfo from "../components/locationinfo";
 //import Noreview from './noreviews';
-import AllReviews from '../components/allreviews';
+//import AllReviews from '../components/allreviews';
+import AllReview from './allreviews';
 
 const Navbarr = () => {
 
@@ -38,10 +39,10 @@ const Navbarr = () => {
             </div>
             {reviewCount === 0 ? (
                 <div className='' >
-                    <AllReviews />
+                    <AllReview />
                 </div>
             ) : (
-                <AllReviews />
+                <AllReview />
             )} 
         </>  
     );
