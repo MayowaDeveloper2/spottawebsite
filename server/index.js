@@ -13,8 +13,9 @@ app.use(express.json());
 app.use(cors({
     origin: '*', // Change this to your actual origin
     methods: ['GET', 'POST'], // Add other allowed methods if needed
-    allowedHeaders: ['Content-Type'], // Add other allowed headers as needed
+    allowedHeaders: ['Content-Type', 'Accept', 'Accept-Encoding', 'Accept-Language', 'Content-Length'], // Include other allowed headers
 }));
+
 
 
 
