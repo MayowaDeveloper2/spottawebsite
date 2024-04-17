@@ -4,7 +4,6 @@ const app = express();
 const port = 9000;
 const cors = require('cors');
 
-
 app.use(express.json());
 
 app.use(cors({
@@ -55,7 +54,7 @@ async function resetSequence() {
     }
 }
 
-/* async function getReviews(req, res) {
+async function getReviews(req, res) {
     try {
         const query = 'SELECT * FROM review;';
         const { rows } = await pool.query(query);
@@ -64,7 +63,7 @@ async function resetSequence() {
         console.error(err);
         res.status(500).send('Failed to fetch reviews');
     }
-} */
+}
 
 createReviewsTable()
     .then(() => resetSequence())
@@ -79,7 +78,7 @@ app.post('/reviews', async (req, res) => {
 
     try {
         const query = `
-            INSERT INTO review (reviewer_name, time, address, star_review, body, likes, dislikes, comments, reviewer_image_url, amenity, anonymous) -- Corrected placeholder for 'amenity'
+            INSERT INTO review (reviewer_name, time, address, star_review, body, likes, dislikes, comments, reviewer_image_url, amenity, anonymous)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             RETURNING id;
         `;
@@ -94,10 +93,8 @@ app.post('/reviews', async (req, res) => {
     }
 });
 
+app.get('/reviews', getReviews); // New route to fetch reviews
 
-/* app.get('/reviews', getReviews); // New route to fetch reviews
-
- */
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
