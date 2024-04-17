@@ -3,9 +3,6 @@ const { Pool } = require('pg');
 const app = express();
 const port = 9000;
 const cors = require('cors');
-const reviewsRoutes = require('./reviewsRoutes');
-const totalNumberRoutes = require('./totalnumber');
-
 
 
 app.use(express.json());
@@ -15,9 +12,6 @@ app.use(cors({
     methods: ['GET', 'POST'], // Add other allowed methods if needed
     allowedHeaders: ['Content-Type', 'Accept', 'Accept-Encoding', 'Accept-Language', 'Content-Length'], // Include other allowed headers
 }));
-
-
-
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
@@ -61,6 +55,17 @@ async function resetSequence() {
     }
 }
 
+async function getReviews(req, res) {
+    try {
+        const query = 'SELECT * FROM review;';
+        const { rows } = await pool.query(query);
+        res.status(200).json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Failed to fetch reviews');
+    }
+}
+
 createReviewsTable()
     .then(() => resetSequence())
     .catch(err => console.error('Initialization error:', err));
@@ -89,9 +94,9 @@ app.post('/reviews', async (req, res) => {
     }
 });
 
-app.use('/total', totalNumberRoutes);
 
-app.use('/reviews', reviewsRoutes);
+app.get('/reviews', getReviews); // New route to fetch reviews
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
