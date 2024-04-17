@@ -25,7 +25,7 @@ const LocationInfo = () => {
 
     const fetchTotalReviews = async () => {
         try {
-            const response = await fetch('https://spottawebsite-api.vercel.app/totalrows');
+            const response = await fetch('https://spottawebsite-api.vercel.app/total');
             const data = await response.json();
             setTotalReviews(data.totalReviews); 
         } catch (error) {
