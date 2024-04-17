@@ -22,7 +22,7 @@ const corsOptions = {
     origin: 'https://spottawebsite-frontend.vercel.app'
   };
   
-  app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
