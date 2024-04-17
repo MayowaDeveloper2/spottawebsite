@@ -13,11 +13,7 @@ const pool = new Pool({
 
 
 
-app.use(cors({
-    origin: '*', // Change this to your actual origin
-    methods: ['GET', 'POST'], // Add other allowed methods if needed
-    allowedHeaders: ['Content-Type', 'Accept', 'Accept-Encoding', 'Accept-Language', 'Content-Length'], // Include other allowed headers
-}));
+app.use(cors());
 
 
 async function getTotalRows(req, res) {
