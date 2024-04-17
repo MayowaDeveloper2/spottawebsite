@@ -10,12 +10,13 @@ const totalNumberRoutes = require('./totalnumber');
 
 app.use(express.json());
 
-// Set the CORS headers for all responses
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', 'application/json');
-    next();
-});
+app.use(cors({
+    origin: '*', // Change this to your actual origin
+    methods: ['GET', 'POST'], // Add other allowed methods if needed
+    allowedHeaders: ['Content-Type'], // Add other allowed headers as needed
+}));
+
+
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
