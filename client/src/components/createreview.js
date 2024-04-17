@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import StarIcon from '@mui/icons-material/Star';
 import axios from 'axios';
-import AnonymousReviewImage from '../assets/emptyreview.jpg';
+import AnonymousReviewImage from '../assets/guy.webp';
 import mayowaImage from '../assets/mayowa.jpg';
 
 const CreateReview = () => {
