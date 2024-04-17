@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(express.json());
 
 app.use(cors({
-    origin: 'https://spottawebsite-frontend.vercel.app/', // Change this to your actual origin
+    origin: 'https://spottawebsite-frontend.vercel.app/reviews', // Change this to your actual origin
     methods: ['GET', 'POST'], // Add other allowed methods if needed
     allowedHeaders: ['Content-Type', 'Accept', 'Accept-Encoding', 'Accept-Language', 'Content-Length'], // Include other allowed headers
 }));
