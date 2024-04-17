@@ -1,7 +1,7 @@
 const express = require('express');
 const { Pool } = require('pg');
 const router = express.Router();
-const cors = require('cors');
+
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
@@ -14,7 +14,7 @@ const pool = new Pool({
 
 
 
-app.use(cors());
+
   
   
 async function getReviews(req, res) {
