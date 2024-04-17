@@ -17,6 +17,13 @@ router.use(cors({
     credentials: true
 }));
 
+const corsOptions = {
+    origin: 'https://spottawebsite-frontend.vercel.app'
+  };
+  
+  app.use(cors(corsOptions));
+
+  
 async function getTotalRows(req, res) {
     try {
         const query = 'SELECT COUNT(*) FROM review;';
