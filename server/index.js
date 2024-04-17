@@ -6,11 +6,7 @@ const cors = require('cors');
 const reviewsRoutes = require('./reviewsRoutes');
 const totalNumberRoutes = require('./totalnumber');
 
-app.use(cors({
-    origin: "https://spottawebsite-frontend.vercel.app",
-    methods: ["POST", "GET"],
-    credentials: true,
-}));
+
 
 app.use(express.json());
 

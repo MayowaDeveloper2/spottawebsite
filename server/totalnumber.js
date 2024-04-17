@@ -11,11 +11,7 @@ const pool = new Pool({
     port: 5432,
 }); 
 
-router.use(cors({
-    origin: "https://spottawebsite-frontend.vercel.app",
-    methods: ["POST", "GET"],
-    credentials: true
-}));
+
 
 
 
