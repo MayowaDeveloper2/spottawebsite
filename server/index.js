@@ -55,7 +55,7 @@ async function resetSequence() {
     }
 }
 
-async function getReviews(req, res) {
+/* async function getReviews(req, res) {
     try {
         const query = 'SELECT * FROM review;';
         const { rows } = await pool.query(query);
@@ -64,7 +64,7 @@ async function getReviews(req, res) {
         console.error(err);
         res.status(500).send('Failed to fetch reviews');
     }
-}
+} */
 
 createReviewsTable()
     .then(() => resetSequence())
@@ -95,9 +95,9 @@ app.post('/reviews', async (req, res) => {
 });
 
 
-app.get('/reviews', getReviews); // New route to fetch reviews
+/* app.get('/reviews', getReviews); // New route to fetch reviews
 
-
+ */
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
