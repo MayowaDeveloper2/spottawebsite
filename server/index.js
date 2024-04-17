@@ -5,6 +5,7 @@ const app = express();
 const port = 9000;
 const cors = require('cors'); 
 const reviewsRoutes = require('./reviewsRoutes');
+const totalNumberRoutes = require('./totalnumber');
 
 
 
@@ -112,6 +113,8 @@ app.post('/reviews', async (req, res) => {
       res.status(500).send('failed');
     }
   }); */
+
+app.use('/total', totalNumberRoutes);  
 
 app.use('/reviews', reviewsRoutes);
 
