@@ -5,7 +5,7 @@ const app = express();
 const port = 9000;
 const cors = require('cors'); 
 const reviewsRoutes = require('./reviewsRoutes');
-const getTotalRows = require('./getTotalRows');
+
 
 
 app.use(cors(
@@ -114,7 +114,6 @@ app.post('/reviews', async (req, res) => {
   }); */
 
 app.use('/reviews', reviewsRoutes);
-app.use('/total-rows', getTotalRows);
 
 
 
