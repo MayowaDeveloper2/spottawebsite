@@ -1,28 +1,25 @@
 const express = require('express');
 const { Pool } = require('pg');
 const app = express();
-/* import pg from 'pg'; */
 const port = 9000;
-const cors = require('cors'); 
+const cors = require('cors');
 const reviewsRoutes = require('./reviewsRoutes');
 const totalNumberRoutes = require('./totalnumber');
 
+app.use(cors({
+    origin: "https://spottawebsite-frontend.vercel.app",
+    methods: ["POST", "GET"],
+    credentials: true,
+}));
 
+app.use(express.json());
 
-app.use(cors(
-    {
-        origin: "https://spottawebsite-frontend.vercel.app",
-        methods: ["POST", "GET"],
-        credentials: true,
-        
-    }
-));
-
-const corsOptions = {
-    origin: 'https://spottawebsite-frontend.vercel.app'
-  };
-  
-  app.use(cors(corsOptions));
+// Set the CORS headers for all responses
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'application/json');
+    next();
+});
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
@@ -30,16 +27,7 @@ const pool = new Pool({
     database: 'postgres',
     password: '8128460866M',
     port: 5432,
-}); 
-
-
-/* const { Pool } = pg;
-
-const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL ,
-}) */
-
-app.use(express.json());
+});
 
 async function createReviewsTable() {
     try {
@@ -103,22 +91,9 @@ app.post('/reviews', async (req, res) => {
     }
 });
 
-/* app.get('/reviews/', async (req, res) => {
-    try {
-      const query = 'SELECT * FROM review;';
-      const { rows } = await pool.query(query);
-      res.status(200).json(rows);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('failed');
-    }
-  }); */
-
-app.use('/total', totalNumberRoutes);  
+app.use('/total', totalNumberRoutes);
 
 app.use('/reviews', reviewsRoutes);
-
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
