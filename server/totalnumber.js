@@ -29,5 +29,6 @@ async function getTotalRows(req, res) {
     }
 }
 
-router.get('/totalrows', getTotalRows);
+router.get('/total-rows', getTotalRows);
+
 module.exports = router;

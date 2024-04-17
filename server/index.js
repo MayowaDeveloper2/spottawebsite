@@ -114,7 +114,7 @@ app.post('/reviews', async (req, res) => {
   }); */
 
 app.use('/reviews', reviewsRoutes);
-app.use('/totalrows', getTotalRows);
+app.use('/total-rows', getTotalRows);
 
 
 
