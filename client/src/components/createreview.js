@@ -6,6 +6,7 @@ import axios from 'axios';
 import AnonymousReviewImage from '../assets/guy.webp';
 import mayowaImage from '../assets/mayowa.jpg';
 import * as Yup from 'yup';
+import toast from 'react-hot-toast';
 
 const CreateReview = () => {
     const reviewFormAmenities = [
@@ -22,9 +23,19 @@ const CreateReview = () => {
     ];
     const [isOpen, setIsOpen] = useState(false);
     const [rating, setRating] = useState(0);
+    const [starTouched, setStarTouched] = useState(false);
+    const [amenitiesTouched, setAmenitiesTouched] = useState(false);
 
-    const handleStarClick = (starValue) => {
+    const handleStarClick = (starValue, setFieldValue) => {
         setRating(starValue);
+        setStarTouched(true);
+        setFieldValue('star_review', starValue);
+    };
+
+    const handleAmenitiesChange = (event, setFieldValue) => {
+        const { name, checked } = event.target;
+        setAmenitiesTouched(true);
+        setFieldValue(name, checked);
     };
 
     const address = "Bonny and Clyde Street, Ajao Estate, Lagos State";
@@ -34,10 +45,12 @@ const CreateReview = () => {
     const time = "1 hour ago";
 
     const validationSchema = Yup.object().shape({
-        amenities: Yup.object().test('has-amenities', '* Required', obj => Object.values(obj).some(val => val === true)),
+        amenities: Yup.object().test('has-amenities', '', obj => amenitiesTouched ? true : Object.values(obj).some(val => val === true)),
         body: Yup.string().required('* Required'),
-        star_review: Yup.number().min(1, '* Required').required('* Required'),
+        star_review: Yup.number().min(1, starTouched ? '' : '* Required').required(starTouched ? '' : '* Required'),
     });
+
+   
 
     const handleSubmit = (values) => {
         if (values?.anonymous === true) {
@@ -64,6 +77,10 @@ const CreateReview = () => {
         })
         .then(response => {
             console.log(response.data);
+            toast.success("Review uploaded successfully", {
+                duration: 6000,
+            });
+            window.location.reload();
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -85,7 +102,7 @@ const CreateReview = () => {
                     onSubmit={(values) => handleSubmit(values)}
                     validationSchema={validationSchema}
                 >
-                    {({ values, handleChange, handleSubmit, errors, touched }) => (
+                    {({ values, handleChange, handleSubmit, errors, touched, handleBlur, setFieldValue }) => (
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                             <div className="text-center">
                                 <h1 className="text-2xl font-bold">Review Location</h1>
@@ -97,7 +114,7 @@ const CreateReview = () => {
                                     className="h-12 rounded-[6px] w-full bg-inherit p-2 flex items-center justify-between"
                                     onClick={() => setIsOpen(!isOpen)}
                                 >
-                                    <span className="insect-2">Select Amenities {errors.amenities && touched.amenities && <span className="text-red-500 ml-4 text-[12px]">* Required</span>}</span>
+                                    <span className="insect-2">Select Amenities {touched.amenities && errors.amenities && <span className="text-red-500 ml-4 text-[12px]">* Required</span>}</span>
                                     <ExpandMoreIcon className="h-6 w-6" />
                                 </button>
                                 <div className={`h-[164px] w-full p-2 rounded-b-md grid grid-cols-2 gap-y-2 gap-x-6 bg-lightBlue absolute bottom-[-164px] border-[1px] border-gray z-10 duration-[.2s] ${
@@ -110,7 +127,8 @@ const CreateReview = () => {
                                                 name={amenity.value}
                                                 className='cursor-pointer'
                                                 checked={values.amenities[amenity.value]}
-                                                onChange={handleChange}
+                                                onChange={(e) => handleAmenitiesChange(e, setFieldValue)}
+                                                onBlur={handleBlur}
                                             />
                                             <label htmlFor={amenity.value} className='text-sm'>
                                                 {amenity.name}
@@ -121,14 +139,14 @@ const CreateReview = () => {
                             </div>
                             <div className='w-full h-[55px] flex flex-col items-start justify-between'>
                                 <>
-                                    <div>Rate Location {errors.star_review && touched.star_review && <span className="text-red-500 text-[12px] ml-4">* Required</span>}</div>
+                                    <div>Rate Location {touched.star_review && errors.star_review && <span className="text-red-500 text-[12px] ml-4">* Required</span>}</div>
                                     <div className='flex gap-1 h-fit'>
                                         {Array.from({ length: 5 }, (_, i) => {
                                             const starValue = i + 1;
                                             return (
                                                 <div key={i} className='h-fit w-fit'>
                                                     <label
-                                                        onClick={() => handleStarClick(starValue)}
+                                                        onClick={() => handleStarClick(starValue, setFieldValue)}
                                                         className='cursor-pointer'
                                                     >
                                                         <StarIcon
@@ -139,6 +157,7 @@ const CreateReview = () => {
                                                             className='hidden'
                                                             value={starValue}
                                                             onChange={handleChange}
+                                                            onBlur={handleBlur}
                                                         />
                                                     </label>
                                                 </div>
@@ -149,7 +168,7 @@ const CreateReview = () => {
                             </div>
                             <div className='w-full flex flex-col items-start gap-4'>
                                 <>
-                                    <div>Write a review {errors.body && touched.body && <span className="text-red-500 text-[12px] ml-4">* Required</span>}</div>
+                                    <div>Write a review {touched.body && errors.body && <span className="text-red-500 text-[12px] ml-4">* Required</span>}</div>
                                     <textarea
                                         name='body'
                                         id="body"
@@ -168,6 +187,7 @@ const CreateReview = () => {
                                     className='cursor-pointer'
                                     checked={values.anonymous}
                                     onChange={handleChange}
+
                                 />
                                 <label
                                     htmlFor='anonymous'
