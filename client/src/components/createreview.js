@@ -5,6 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import axios from 'axios';
 import AnonymousReviewImage from '../assets/guy.webp';
 import mayowaImage from '../assets/mayowa.jpg';
+import * as Yup from 'yup';
 
 const CreateReview = () => {
     const reviewFormAmenities = [
@@ -32,7 +33,12 @@ const CreateReview = () => {
     const comments = 40;
     const time = "1 hour ago";
 
-  
+    const validationSchema = Yup.object().shape({
+        amenities: Yup.object().test('has-amenities', '* Required', obj => Object.values(obj).some(val => val === true)),
+        body: Yup.string().required('* Required'),
+        star_review: Yup.number().min(1, '* Required').required('* Required'),
+    });
+
     const handleSubmit = (values) => {
         if (values?.anonymous === true) {
             values.reviewer_name = 'Anonymous';
@@ -51,7 +57,6 @@ const CreateReview = () => {
             ...values
         };
 
-        
         axios.post('https://spottawebsite-api.vercel.app/reviews', data, {
             headers: {
                 'Content-Type': 'application/json'
@@ -67,19 +72,21 @@ const CreateReview = () => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-95">
-            <div className="bg-white rounded-lg p-8 lg:w-[500px] lg:h-[587px]">
+            <div className="bg-white rounded-lg p-4 lg:w-[500px] lg:h-[590px]">
                 <Formik
                     initialValues={{
                         body: '',
                         amenities: {},
                         anonymous: false,
-                        reviewer_name: "Akintoye Mayowa",
-                        reviewer_image_url: "../assets/mayowa.jpg"
+                        reviewer_name: '',
+                        reviewer_image_url: '',
+                        star_review: '',
                     }}
                     onSubmit={(values) => handleSubmit(values)}
+                    validationSchema={validationSchema}
                 >
-                    {({ values, handleChange, handleSubmit }) => (
-                        <form onSubmit={handleSubmit}  className="flex flex-col gap-6">
+                    {({ values, handleChange, handleSubmit, errors, touched }) => (
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                             <div className="text-center">
                                 <h1 className="text-2xl font-bold">Review Location</h1>
                                 <p className="text-gray-600 text-left mt-2">{address}</p>
@@ -90,7 +97,7 @@ const CreateReview = () => {
                                     className="h-12 rounded-[6px] w-full bg-inherit p-2 flex items-center justify-between"
                                     onClick={() => setIsOpen(!isOpen)}
                                 >
-                                    <span className="insect-2">Select Amenities</span>
+                                    <span className="insect-2">Select Amenities {errors.amenities && touched.amenities && <span className="text-red-500 ml-4 text-[12px]">* Required</span>}</span>
                                     <ExpandMoreIcon className="h-6 w-6" />
                                 </button>
                                 <div className={`h-[164px] w-full p-2 rounded-b-md grid grid-cols-2 gap-y-2 gap-x-6 bg-lightBlue absolute bottom-[-164px] border-[1px] border-gray z-10 duration-[.2s] ${
@@ -113,8 +120,8 @@ const CreateReview = () => {
                                 </div>
                             </div>
                             <div className='w-full h-[55px] flex flex-col items-start justify-between'>
-                                <>  
-                                    <div>Rate Location</div>
+                                <>
+                                    <div>Rate Location {errors.star_review && touched.star_review && <span className="text-red-500 text-[12px] ml-4">* Required</span>}</div>
                                     <div className='flex gap-1 h-fit'>
                                         {Array.from({ length: 5 }, (_, i) => {
                                             const starValue = i + 1;
@@ -142,6 +149,7 @@ const CreateReview = () => {
                             </div>
                             <div className='w-full flex flex-col items-start gap-4'>
                                 <>
+                                    <div>Write a review {errors.body && touched.body && <span className="text-red-500 text-[12px] ml-4">* Required</span>}</div>
                                     <textarea
                                         name='body'
                                         id="body"
