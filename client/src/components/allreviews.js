@@ -46,7 +46,7 @@ const AllReview = () => {
                             <span className='inline-block mr-8 text-customDarkBlue'><ThumbDownAltIcon  style={{fontSize: "14px", color: "#0D2159"}} /> {review.dislikes}</span>
                             <span className='inline-block text-customDarkBlue'><ChatBubbleIcon  style={{fontSize: "14px", color: "#0D2159"}} /> {review.comments}</span>
                         </div>
-                        <div className='mt-4'>
+                        <div className='mt-4 mb-4'>
                             <hr className='w-full border-t border-gray-300' />
                         </div>
                     </div>
