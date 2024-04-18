@@ -1,11 +1,11 @@
 const express = require('express');
 const { Pool } = require('pg');
+const cors = require('cors'); // Import CORS middleware
 const app = express();
 const port = 9000;
 
-
 app.use(express.json());
-
+app.use(cors()); // Add CORS middleware
 
 const pool = new Pool({
     user: 'postgres.aricpnxiparpyvpmkowk',
