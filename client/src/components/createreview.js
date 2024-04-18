@@ -45,7 +45,7 @@ const CreateReview = () => {
     const time = "1 hour ago";
 
     const validationSchema = Yup.object().shape({
-        amenities: Yup.object().test('has-amenities', '', obj => amenitiesTouched ? true : Object.values(obj).some(val => val === true)),
+        amenities: Yup.object().test('has-amenities', '* Required', obj => amenitiesTouched ? true : Object.values(obj).some(val => val === true)),
         body: Yup.string().required('* Required'),
         star_review: Yup.number().min(1, starTouched ? '' : '* Required').required(starTouched ? '' : '* Required'),
     });
